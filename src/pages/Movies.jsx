@@ -1,26 +1,32 @@
+import { useEffect } from 'react';
+import { useSearchParams } from 'react-router-dom';
+import { responses } from 'services/api';
+import { FilmList } from 'components/HomeList/HomeList';
+import { SearchBar } from 'components/SearchBar/SearchBar';
+import { useFetchMovies } from 'hooks/fetchApi';
 
-//import { NavLink,Outlet ,useSearchParams} from "react-router-dom";
-//import getMovieById from "services/api";
-import { FilmList } from "components/HomeList/HomeList";
-import { SearchBar } from "components/SearchBar/SearchBar";
+const Movies = () => {
+  const [searchParams, setSearchParams] = useSearchParams();
+  const searchQuery = searchParams.get('searchQuery') ?? '';
+  const { isLoading, data, error, fetchApi } = useFetchMovies();
 
-const Movies=()=>{
-  //const movies = getMovieById();
-  // const [searchParams, setSearchParams] = useSearchParams();
-  // const movieName = searchParams.get("title") ?? "";
+  useEffect(() => {
+    if (!searchQuery) return;
+    fetchApi(responses.fetchMovieBySearch(searchQuery));
+  }, [fetchApi, searchQuery]);
 
-  // const visibleMovies = movies.filter((movie) =>
-  //   movie.title.toLowerCase().includes(movieName.toLowerCase())
-  // );
+  const movies = data?.results;
 
-  // const updateQueryString = (title) => {
-  //   const nextParams = title !== "" ? { title } : {};
-  //   setSearchParams(nextParams);
-  // };
-     return <main>
-   <FilmList/>
-  <SearchBar />
-  </main>
+  const handleSubmit = searchQuery => {
+    setSearchParams({ searchQuery: searchQuery });
+  };
+
+  return (
+    <main>
+      <SearchBar onSubmit={handleSubmit} />
+      <FilmList error={error} isLoading={isLoading} movies={movies} />
+    </main>
+  );
 };
 
 export default Movies;

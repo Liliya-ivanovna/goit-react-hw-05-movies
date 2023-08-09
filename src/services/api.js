@@ -1,21 +1,35 @@
 
- 
- //const URL = 'https://api.themoviedb.org/3';
 
+export const responses = {
+  async fetchPopularMovies ()  {
+    const response = await fetch(
+      `https://api.themoviedb.org/3/trending/all/day?api_key=${'3073a492602eee53f225e37916e4cfb6'}`
+    );
+    return await response.json();
+  },
+  async fetchMovieById (movieId)  {
+    const response = await fetch(
+      `https://api.themoviedb.org/3/movie/${movieId}?api_key=${'3073a492602eee53f225e37916e4cfb6'}&language=en-US`
+    );
+    return await response.json();
+  },
+  async fetchMovieBySearch (searchQuery)  {
+    const response = await fetch(
+      `https://api.themoviedb.org/3/search/movie?api_key=${'3073a492602eee53f225e37916e4cfb6'}&language=en-US&query=${searchQuery}&page=1&include_adult=false`
+    );
+    return await response.json();
+  },
+  async fetchMovieByCast (movieId)  {
+    const response = await fetch(
+      `https://api.themoviedb.org/3/movie/${movieId}/credits?api_key=${'3073a492602eee53f225e37916e4cfb6'}&language=en-US`
+    );
+    return await response.json();
+  },
+  async fetchMovieByReviews (movieId)  {
+    const response = await fetch(
+      `https://api.themoviedb.org/3/movie/${movieId}/reviews?api_key=${'3073a492602eee53f225e37916e4cfb6'}&language=en-US&page=1`
+    );
+    return await response.json();
+  },
+}
 
-const getMovieById = async (page=1,path) => {
-    const options = {
-        method: 'GET',
-        headers: {
-          accept: 'application/json',
-          Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIzMDczYTQ5MjYwMmVlZTUzZjIyNWUzNzkxNmU0Y2ZiNiIsInN1YiI6IjY0Y2Q1ZjNjODI4OWEwMDBhZWQzOTYxMCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.LrBGD1a1taq_NnfCraryrWLCuTmKWuGko00Bk7DXGW4'
-        }
-      };
-      
-      fetch('https://api.themoviedb.org/3/trending/movie/day?language=en-US', options)
-        .then(response =>{return response.json()})
-        .then(response => console.log(response))
-        .catch(err => console.error(err));
-    }
-getMovieById()
-export default  getMovieById ;
