@@ -7,15 +7,20 @@ import { useEffect } from 'react';
 
 const Home = () => {
   const { isLoading, data, error, fetchApi } = useFetchMovies();
+  
   useEffect(() => {
     fetchApi(responses.fetchPopularMovies());
   }, [fetchApi]);
   const movies = data?.results;
-  const notEmpty = movies && data?.results.length > 0;
+  console.log(movies);
+  const isVisible = Array.isArray(movies) && movies.length > 0;
+  
   return (
     <>
       <h2>Trending today</h2>
-      {notEmpty&& !error && <FilmList movies={movies} isLoading={isLoading}/>}
+      {isVisible && !error && (
+        <FilmList movies={movies} isLoading={isLoading} />
+      )}
     </>
   );
 };
