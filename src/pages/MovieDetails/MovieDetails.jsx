@@ -35,6 +35,7 @@ const MovieDetails = () => {
   }, [movieId]);
 
   const location = useLocation();
+  
 
   const imgSrc = movieData?.poster_path
     ? `https://image.tmdb.org/t/p/w500${movieData.poster_path}`
