@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import PropTypes from 'prop-types';
 import {Div,Form,Button,Input} from './SearchBar.styled';
+
 const initialState = {
   searchValue: '',
 };
@@ -22,7 +23,7 @@ export const SearchBar = ({ onSubmit }) => {
           name="searchValue"
           value={formData.searchValue}
           onChange={({ target: { value, name } }) => {
-            setFormData({ ...formData, [name]: value });
+          setFormData({ ...formData, [name]: value });
           }}
           autoComplete="off"
           autoFocus

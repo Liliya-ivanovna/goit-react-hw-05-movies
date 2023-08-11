@@ -2,7 +2,6 @@ import { FilmList } from 'components/HomeList/HomeList';
 
 import { useFetchMovies } from 'hooks/fetchApi';
 import { responses } from 'services/api';
-
 import { useEffect } from 'react';
 
 const Home = () => {

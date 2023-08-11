@@ -1,4 +1,3 @@
-import { Loader } from 'components/Loader/Loader';
 import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { responses } from 'services/api';
@@ -14,7 +13,7 @@ import { NoPoster } from 'pages/MovieDetails/MovieDetails.styled';
 
 export const Cast = () => {
   const { movieId } = useParams();
-  const { data, isLoading, error, fetchApi } = useFetchMovies();
+  const { data, fetchApi } = useFetchMovies();
 
   useEffect(() => {
     if (!movieId) return;
@@ -24,13 +23,7 @@ export const Cast = () => {
 
   return (
     <div>
-      {error && <p>{error.message}</p>}
-      {isLoading && (
-        <div>
-          <Loader />
-        </div>
-      )}
-      {!!dataCast && !isLoading && dataCast.length > 0 ? (
+      {!!dataCast&& dataCast.length > 0 ? (
         <Swiper
           pagination={{
             type: 'fraction',
@@ -57,7 +50,7 @@ export const Cast = () => {
           ))}
         </Swiper>
       ) : (
-        <h4>We don't have any cast of this movie 🤔</h4>
+        <h2>We don't have any cast of this movie 🤔</h2>
       )}
     </div>
   );
@@ -69,7 +62,5 @@ Cast.propTypes = {
     name: PropTypes.string.isRequired,
     profile_path: PropTypes.string,
   }),
-  isLoading: PropTypes.func,
-  error: PropTypes.func,
-  fetchApi: PropTypes.func,
+ fetchApi: PropTypes.func,
 };

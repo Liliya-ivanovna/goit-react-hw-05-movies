@@ -1,4 +1,3 @@
-import { Loader } from 'components/Loader/Loader';
 import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { responses } from 'services/api';
@@ -8,7 +7,7 @@ import {Ul} from './Reviews.styled'
 
 export const Reviews = () => {
   const { movieId } = useParams();
-  const { data, isLoading, error, fetchApi } = useFetchMovies();
+  const { data, isLoading,fetchApi } = useFetchMovies();
 
   useEffect(() => {
     if (!movieId) return;
@@ -18,12 +17,6 @@ export const Reviews = () => {
 
   return (
     <>
-      {error && <p>{error.message}</p>}
-      {isLoading && (
-        <div>
-          <Loader />
-        </div>
-      )}
       {!!dataResults && !isLoading && dataResults.length > 0 ? (
         <Ul>
           {dataResults.map(result => (
@@ -33,9 +26,9 @@ export const Reviews = () => {
             </li>
           ))}
         </Ul>
-      ) : (
+      ) : 
         <h2>We don't have any reviews of this movie 🤔</h2>
-      )}
+      }
     </>
   );
 };

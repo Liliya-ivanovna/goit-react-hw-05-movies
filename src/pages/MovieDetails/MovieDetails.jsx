@@ -1,4 +1,4 @@
-import { useParams, useLocation, Outlet } from 'react-router-dom';
+import { useParams, useLocation, Outlet, useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { responses } from 'services/api';
 import { Loader } from 'components/Loader/Loader';
@@ -35,7 +35,15 @@ const MovieDetails = () => {
   }, [movieId]);
 
   const location = useLocation();
-  
+  const navigate = useNavigate();
+
+  const handleMoveBack = () => {
+    if (location.state) {
+      navigate(location.state.from);
+      return;
+    }
+    navigate('/');
+  };
 
   const imgSrc = movieData?.poster_path
     ? `https://image.tmdb.org/t/p/w500${movieData.poster_path}`
@@ -45,7 +53,7 @@ const MovieDetails = () => {
     <Container>
       <Flex>
         <Wrapper>
-          <Button onClick={()=>location?.state?.from ??'/'}>◀◀ Go back</Button>
+          <Button onClick={handleMoveBack}>◀◀ Go back</Button>
           {error && <p>{error.message}</p>}
           {isLoading && <Loader />}
           {imgSrc ? (
