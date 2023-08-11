@@ -4,6 +4,7 @@ import { useParams } from 'react-router-dom';
 import { responses } from 'services/api';
 import { useFetchMovies } from 'hooks/fetchApi';
 import PropTypes from 'prop-types';
+import {Ul} from './Reviews.styled'
 
 export const Reviews = () => {
   const { movieId } = useParams();
@@ -24,16 +25,16 @@ export const Reviews = () => {
         </div>
       )}
       {!!dataResults && !isLoading && dataResults.length > 0 ? (
-        <ul>
+        <Ul>
           {dataResults.map(result => (
             <li key={result.id}>
-              <h4>Author: {result.author}</h4>
+              <h3>Author: {result.author}</h3>
               <p>{result.content}</p>
             </li>
           ))}
-        </ul>
+        </Ul>
       ) : (
-        <h4>We don't have any reviews of this movie 🤔</h4>
+        <h2>We don't have any reviews of this movie 🤔</h2>
       )}
     </div>
   );

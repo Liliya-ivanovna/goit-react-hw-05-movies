@@ -1,16 +1,16 @@
 import PropTypes from 'prop-types';
 import { HomeItem } from 'components/HomeItem/HomeItem';
 import { Loader } from 'components/Loader/Loader';
-
+import {Ul} from './HomeList.styled';
 export const FilmList = ({ movies = [], isLoading = false, error = '' }) => {
   const isVisible = Array.isArray(movies) && movies?.length > 0;
 
   return (
     <>
-      <ul>
+      <Ul>
         {isVisible &&
           movies.map(movie => <HomeItem key={movie.id} {...movie} />)}
-      </ul>
+      </Ul>
       {!!error && <p>{error.message}</p>}
       {isLoading && <Loader />}
     </>

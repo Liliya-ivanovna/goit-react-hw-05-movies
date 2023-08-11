@@ -1,5 +1,13 @@
-import { Link, useLocation } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 import PropTypes from 'prop-types';
+import styled from "styled-components";
+
+const StyledLink = styled(NavLink)`
+  color: #966060;
+ text-decoration:none;
+ font-weight: 500;
+font-size:20px;
+`;
 
 export const HomeItem = ({ title,name, id }) => {
     
@@ -7,9 +15,9 @@ export const HomeItem = ({ title,name, id }) => {
 
     return (
       <li>
-     <Link to={`/movies/${id}`} state={{ from: location }}>
+     <StyledLink to={`/movies/${id}`} state={{ from: location }}>
        {title??name}
-        </Link>
+        </StyledLink>
       </li>
     );
   };

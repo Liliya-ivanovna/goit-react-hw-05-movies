@@ -2,14 +2,24 @@ import {
   useParams,
   useLocation,
   useNavigate,
-  Link,
+  NavLink,
   Outlet,
 } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { responses } from 'services/api';
 import { Loader } from 'components/Loader/Loader';
-import { NoPoster } from './MovieDetails.styled';
+import { NoPoster,Wrapper,Button,Flex,Div,Container } from './MovieDetails.styled';
+import styled from "styled-components";
 
+const StyledLink = styled(NavLink)`
+  color: black;
+ text-decoration:none;
+ font-weight: 900;
+font-size:20px;
+  &.active {
+    color: red;
+  }
+`;
 const MovieDetails = () => {
   const { movieId } = useParams();
   const [movieData, setMovieData] = useState(null);
@@ -48,28 +58,25 @@ const MovieDetails = () => {
     : '';
 
   return (
-    <div>
-      <button onClick={handleGoBack}>◀◀ Go back</button>
+    <Container>
+       <Flex>
+      <Wrapper>
+      <Button onClick={handleGoBack}>◀◀ Go back</Button>
       {error && <p>{error.message}</p>}
-      {isLoading && (
-        <div>
-          <Loader />
-        </div>
-      )}
-      {imgSrc ? (
-        <img src={imgSrc} alt={movieData?.title} loading="lazy" />
-      ) : (
-        <NoPoster/>
-      )}
+      {isLoading && <Loader />}
+      {imgSrc ? 
+        <img src={imgSrc} alt={movieData?.title} width="400px" height="600px"loading="lazy" />
+       : <NoPoster/>}
+          </Wrapper>
       {movieData !== null && (
-        <div>
-          <h2>{movieData.title}</h2>
+        <Wrapper>
+       <h1>{movieData.title}</h1>
           <p>
             User Score: {!movieData.vote_average? "0":((movieData.vote_average * 1000) / 100).toFixed()}%
           </p>
-          <h3>Overview</h3>
+          <h2>Overview</h2>
           <p>{movieData.overview}</p>
-          <h3>Genres</h3>
+          <h2>Genres</h2>
           <p>
             {movieData.genres?.length > 0
               ? movieData.genres?.map(({ name }) =>
@@ -77,12 +84,14 @@ const MovieDetails = () => {
                 )
               : 'No results of genres'}
           </p>
-        </div>
-      )}
-      <Link to="cast">Cast</Link>
-      <Link to="reviews">Reviews</Link>
+          </Wrapper>)} 
+           </Flex>
+           <Div>
+      <StyledLink to="cast">Cast 👈</StyledLink>
+      <StyledLink to="reviews">Reviews 👈</StyledLink>
+      </Div>
       <Outlet />
-    </div>
+    </Container>
   );
 };
 

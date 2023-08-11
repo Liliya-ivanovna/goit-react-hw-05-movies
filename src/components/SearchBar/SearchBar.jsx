@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import PropTypes from 'prop-types';
-
+import {Div,Form,Button,Input} from './SearchBar.styled';
 const initialState = {
   searchValue: '',
 };
@@ -15,9 +15,9 @@ export const SearchBar = ({ onSubmit }) => {
   };
 
   return (
-    <div>
-      <form onSubmit={onHandleSubmit}>
-        <input
+    <Div>
+      <Form onSubmit={onHandleSubmit}>
+    <Input
           type="text"
           name="searchValue"
           value={formData.searchValue}
@@ -26,12 +26,14 @@ export const SearchBar = ({ onSubmit }) => {
           }}
           autoComplete="off"
           autoFocus
+          required
+          placeholder=" Search movie"
         />
-        <button type="submit">
+        <Button type="submit">
           <span>Search</span>
-        </button>
-      </form>
-    </div>
+        </Button>
+      </Form>
+    </Div>
   );
 };
 

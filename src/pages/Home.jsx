@@ -17,7 +17,7 @@ const Home = () => {
   
   return (
     <>
-      <h2>Trending today</h2>
+      <h2 style={{ marginLeft:`50px` }}>Trending today</h2>
       {isVisible && !error && (
         <FilmList movies={movies} isLoading={isLoading} />
       )}
