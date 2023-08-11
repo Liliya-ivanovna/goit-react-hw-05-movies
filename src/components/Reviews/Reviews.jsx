@@ -17,7 +17,7 @@ export const Reviews = () => {
   const dataResults = data?.results;
 
   return (
-    <div>
+    <>
       {error && <p>{error.message}</p>}
       {isLoading && (
         <div>
@@ -36,7 +36,7 @@ export const Reviews = () => {
       ) : (
         <h2>We don't have any reviews of this movie 🤔</h2>
       )}
-    </div>
+    </>
   );
 };
 
